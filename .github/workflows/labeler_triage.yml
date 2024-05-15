@@ -1,0 +1,19 @@
+name: Triage Labeler
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-pending-triage-label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Add the pending-triage label
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY_NAME: ${{ github.event.repository.full_name }}
+        run: |
+          gh issue edit $ISSUE_NUMBER --repo $REPOSITORY_NAME --add-label "pending-triage"
