@@ -3,6 +3,7 @@ name: Stale Labeler
 on:
   schedule:
   - cron: "* * * * *"
+  workflow_dispatch: 
 
 env: 
   # The number of comments that determines action, modify this variable to adjust sensitivity
