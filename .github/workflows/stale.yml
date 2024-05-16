@@ -8,7 +8,7 @@ on:
 env: 
   # The number of comments that determines action, modify this variable to adjust sensitivity
   COMMENT_THRESHOLD: 5
-  MARK_STALE_AFTER_SMALL: 0.001
+  MARK_STALE_AFTER_SMALL: 0
   MARK_STALE_AFTER_LARGE: 60
   CLOSE_STALE_AFTER_SMALL: 1
   CLOSE_STALE_AFTER_LARGE: 14
