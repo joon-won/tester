@@ -28,7 +28,7 @@ jobs:
             "comments>=${{ env.COMMENT_THRESHOLD }}": "This issue was closed since it's been 14 days with no activity."
           }    
         stale-issue-label: "closing soon"
-        debug-only: true
+        debug-only: false
         # Issues with less than 5 comments will be marked as "closing soon" after 30 days of inactivity
         # Issues with or more than 5 comments will be marked as "closing soon" after 60 days of inactivity
         days-before-stale: 0
