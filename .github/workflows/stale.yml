@@ -35,6 +35,7 @@ jobs:
         days-before-pr-stale: -1
         # Issues with any of these labels are checked, excluding feature request from going stale
         any-of-issue-labels: "pending-response, !feature-request"
+        ignore-updates: true
 
   close-stale:
     runs-on: ubuntu-latest
