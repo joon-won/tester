@@ -24,7 +24,7 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         operations-per-run: 200
-        stale-issue-message:
+        stale-issue-message: >-
         ${{ if lt(comments, env.COMMENT_THRESHOLD) }}:
           "This issue is stale since it's been open ${{ env.MARK_STALE_AFTER_SMALL }} days with no activity. This will be closed in ${{ env.CLOSE_STALE_AFTER_SMALL }} days unless the `Closing Soon` label is removed or a comment is added. Thank you for your contributions."                          
         ${{ else }}:
