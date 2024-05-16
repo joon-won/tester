@@ -1,24 +1,49 @@
-name: Close Stales
+name: Stale Labeler
 
 on:
   schedule:
   - cron: "30 1 * * *"
 
+env: 
+  # The number of comments that determines action, modify this variable to adjust sensitivity
+  COMMENT_THRESHOLD: 5
+
 jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/stale
+    - uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9.0.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         operations-per-run: 200
-        stale-issue-message: "This issue is stale since it's been open 30 days with no activity. This will be closed in 7 days unless the `Closing Soon` label is removed or a comment is added. Thank you for your contributions."
-        close-issue-message: "This issue was closed since it's been 7 days with no activity."
+        stale-issue-message: >-
+            {
+              "comments<${{ env.COMMENT_THRESHOLD }}": "This issue is stale since it's been open 30 days with no activity. This will be closed in 7 days unless the `Closing Soon` label is removed or a comment is added. Thank you for your contributions.",
+              "comments>=${{ env.COMMENT_THRESHOLD }}": "This issue is stale since it's been open 60 days with no activity. This will be closed in 7 days unless the `Closing Soon` label is removed or a comment is added. Thank you for your contributions."
+            }                    
+        close-issue-message:  >-
+          {
+            "comments<${{ env.COMMENT_THRESHOLD }}": "This issue was closed since it's been 7 days with no activity."
+            "comments>=${{ env.COMMENT_THRESHOLD }}": "This issue was closed since it's been 14 days with no activity."
+          }    
         stale-issue-label: "closing soon"
         debug-only: true
-        days-before-stale: 0
-        days-before-close: 0
+        # Issues with less than 5 comments will be marked as "closing soon" after 30 days of inactivity
+        # Issues with or more than 5 comments will be marked as "closing soon" after 60 days of inactivity
+        days-before-stale: >-
+          {
+            "pending-response&&comments<${{ env.COMMENT_THRESHOLD }}": 30,
+            "pending-response&&comments>=${{ env.COMMENT_THRESHOLD }}": 60
+          }
+        # Issues with less than 5 comments will be closed after 7 days of inactivity
+        # Issues with or more than 5 comments will be closed after 14 days of inactivity
+        days-before-close: >-
+          {
+            "closing soon&&comments<${{ env.COMMENT_THRESHOLD }}": 7,
+            "closing soon&&comments>=${{ env.COMMENT_THRESHOLD }}": 14
+          }
         # PRs wont go stale
         days-before-pr-stale: -1
-        # Issues with any of these labels are checked.
-        any-of-labels: "pending-triage"
+        # Issues with any of these labels are checked, excluding feature request from going stale
+        any-of-labels: "pending-response, closing soon, !feature-request"
+
