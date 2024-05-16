@@ -31,18 +31,10 @@ jobs:
         debug-only: true
         # Issues with less than 5 comments will be marked as "closing soon" after 30 days of inactivity
         # Issues with or more than 5 comments will be marked as "closing soon" after 60 days of inactivity
-        days-before-stale: >-
-          {
-            "pending-response&&comments<${{ env.COMMENT_THRESHOLD }}": 0,
-            "pending-response&&comments>=${{ env.COMMENT_THRESHOLD }}": 60
-          }
+        days-before-stale: 0
         # Issues with less than 5 comments will be closed after 7 days of inactivity
         # Issues with or more than 5 comments will be closed after 14 days of inactivity
-        days-before-close: >-
-          {
-            "closing soon&&comments<${{ env.COMMENT_THRESHOLD }}": 0,
-            "closing soon&&comments>=${{ env.COMMENT_THRESHOLD }}": 14
-          }
+        days-before-close: 1
         # PRs wont go stale
         days-before-pr-stale: -1
         # Issues with any of these labels are checked, excluding feature request from going stale
