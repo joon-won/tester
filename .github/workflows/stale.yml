@@ -32,7 +32,7 @@ jobs:
         # Issues with or more than 5 comments will be marked as "closing soon" after 60 days of inactivity
         days-before-stale: >-
           {
-            "pending-response&&comments<${{ env.COMMENT_THRESHOLD }}": ${{ env.MARK_STALE_AFTER_SMALL }},
+            "pending-response&&comments<${{ env.COMMENT_THRESHOLD }}": ${{ env.MARK_STALE_AFTER_SMALL }}
             "pending-response&&comments>=${{ env.COMMENT_THRESHOLD }}": ${{ env.MARK_STALE_AFTER_LARGE }}
           }
         # PRs wont go stale
@@ -57,7 +57,7 @@ jobs:
         # Issues with or more than 5 comments will be closed after 14 days of inactivity
         days-before-close: >-
           {
-            "closing soon&&comments<${{ env.COMMENT_THRESHOLD }}": ${{ env.CLOSE_STALE_AFTER_SMALL }},
+            "closing soon&&comments<${{ env.COMMENT_THRESHOLD }}": ${{ env.CLOSE_STALE_AFTER_SMALL }}
             "closing soon&&comments>=${{ env.COMMENT_THRESHOLD }}": ${{ env.CLOSE_STALE_AFTER_LARGE }}
           }
         # PRs wont go stale
