@@ -4,7 +4,10 @@ on:
   schedule:
   - cron: "30 1 * * *"  
   workflow_dispatch:
-
+  
+permissions:
+  issues: write
+  
 env: 
   # The number of comments that determines action, modify this variable to adjust sensitivity
   COMMENT_THRESHOLD: 5
@@ -16,7 +19,6 @@ env:
 jobs:
   stale:
     runs-on: ubuntu-latest
-    permissions: write
     steps:
     - uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9.0.0
       with:
